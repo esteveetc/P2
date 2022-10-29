@@ -15,7 +15,7 @@ const float FRAME_TIME = 10.0F; /* in ms. */
  */
 
 const char *state_str[] = {
-  "UNDEF", "S", "V", "INIT"
+  "UNDEF", "S", "V", "INIT", "MV", "MS"
 };
 
 const char *state2str(VAD_STATE st) {
@@ -52,12 +52,13 @@ Features compute_features(const float *x, int N) {
  * TODO: Init the values of vad_data
  */
 
-VAD_DATA * vad_open(float rate, float alfa1) {
+VAD_DATA * vad_open(float rate, float alfa1, float alfa2) {
   VAD_DATA *vad_data = malloc(sizeof(VAD_DATA));
   vad_data->state = ST_INIT;
   vad_data->sampling_rate = rate;
   vad_data->frame_length = rate * FRAME_TIME * 1e-3;
-  vad_data->alfa1=alfa1; 
+  vad_data->alfa1=alfa1;
+  vad_data->alfa2=alfa2;
   return vad_data;
 }
 
@@ -89,32 +90,54 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
 
   Features f = compute_features(x, vad_data->frame_length);
   vad_data->last_feature = f.p; /* save feature, in case you want to show */
-
   switch (vad_data->state) {
   case ST_INIT:
+    //printf("init \n");
     vad_data->state = ST_SILENCE;
-    vad_data->umbral = f.p + vad_data->alfa1; //alfa1=3
+    vad_data->stateAnterior= ST_SILENCE;
+    vad_data->umbral2 = f.p + vad_data->alfa2; //alfa2=2 ()
+    vad_data->umbral = f.p + vad_data->alfa1; //alfa1=5.1 (89.293%)
     break;
-
   case ST_SILENCE:
-    if (f.p > vad_data->umbral)
-      vad_data->state = ST_VOICE;
+    //printf("silence \n");
+    if (f.p > vad_data->umbral2)
+      vad_data->state = ST_MAYBEVOICE;
     break;
-
-  case ST_VOICE:
-    if (f.p < vad_data->umbral)
+  case ST_MAYBEVOICE:
+    //printf("maybevoice \n");
+    if (f.p < vad_data->umbral2){
       vad_data->state = ST_SILENCE;
+      vad_data->stateAnterior = ST_SILENCE;
+    }else if (f.p > vad_data->umbral){
+      vad_data->state = ST_VOICE;
+      vad_data->stateAnterior = ST_VOICE;
+    }
     break;
-
+  case ST_MAYBESILENCE:
+    //printf("maybesilence \n");
+    if (f.p < vad_data->umbral2){
+      vad_data->state = ST_SILENCE;
+      vad_data->stateAnterior = ST_SILENCE;
+    }else if (f.p > vad_data->umbral){
+      vad_data->state = ST_VOICE;
+      vad_data->stateAnterior = ST_VOICE;
+    }
+    break;
+  case ST_VOICE:
+    //printf("voice \n");
+    if (f.p < vad_data->umbral)
+      vad_data->state = ST_MAYBESILENCE;
+    break;
   case ST_UNDEF:
     break;
   }
 
-  if (vad_data->state == ST_SILENCE ||
-      vad_data->state == ST_VOICE)
-    return vad_data->state;
-  else
+  if(vad_data->stateAnterior == ST_SILENCE || vad_data->stateAnterior == ST_VOICE){
+    return vad_data->stateAnterior;
+  } else{
+    //printf("stateAnteriorError\n");
     return ST_UNDEF;
+  }
 }
 
 void vad_show_state(const VAD_DATA *vad_data, FILE *out) {
