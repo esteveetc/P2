@@ -115,22 +115,22 @@ finalment el senyal original en domini temporal.
 	* Incremento del nivel potencia en dB, respecto al nivel correspondiente al silencio inicial, para
 	  estar seguros de que un segmento de señal se corresponde con voz.
 	  
-		Primerament, veiem com el silenci correspon aproximadament a 20dB i quan procedim a parlar la potencia puja a uns 60 dB. 
-		És a dir, la variació de silenci a veu és de 40dB aproximadament. 
+	Primerament, veiem com el silenci correspon aproximadament a 20dB i quan procedim a parlar la potencia puja a uns 60 dB. 
+	És a dir, la variació de silenci a veu és de 40dB aproximadament. 
 
-		Aquest canvi es veu sobretot quan apareix una lletra sonora, ja que tenen una potència molt elevada i una freqüència més reduïda que un to sord.
+	Aquest canvi es veu sobretot quan apareix una lletra sonora, ja que tenen una potència molt elevada i una freqüència més reduïda que un to sord.
 
 
 * Duración mínima razonable de los segmentos de voz y silencio.
 	
-		Amb uns 0.2 segons ja es nota la pausa al parlar, el que podem considerar silenci, en canvi la veu per poder-la diferencia de sorolls agafarem una 
-		duració mìnima de 0.5 ja que podem trobar-nos sons sonors (no veu) amb duracions inferiors a 0.5 però suficientment llargs.
+	Amb uns 0.2 segons ja es nota la pausa al parlar, el que podem considerar silenci, en canvi la veu per poder-la diferencia de sorolls agafarem una 
+	duració mìnima de 0.5 ja que podem trobar-nos sons sonors (no veu) amb duracions inferiors a 0.5 però suficientment llargs.
 
 
 * ¿Es capaz de sacar alguna conclusión a partir de la evolución de la tasa de cruces por cero?
 	
-		Per altra banda, gràcies a la gràfica ZCR veiem la tassa de creuaments per zero, això és molt útil pels tons sords, ja que tenen una freqüència molt 
-		elevada i una potencia més reduïda que les lletres sonores. Ens permet diferencia entre silenci i un to sord.
+	Per altra banda, gràcies a la gràfica ZCR veiem la tassa de creuaments per zero, això és molt útil pels tons sords, ja que tenen una freqüència molt 
+	elevada i una potencia més reduïda que les lletres sonores. Ens permet diferencia entre silenci i un to sord.
 
 
 
