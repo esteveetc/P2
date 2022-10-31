@@ -173,6 +173,8 @@ finalment el senyal original en domini temporal.
 - Indique a continuación si ha realizado algún tipo de aportación suplementaria (algoritmos de detección o 
   parámetros alternativos, etc.).
 
+![Alt text](capt_ampl.png?raw=true "Title")
+
 - Si lo desea, puede realizar también algún comentario acerca de la realización de la práctica que
   considere de interés de cara a su evaluación.
 
