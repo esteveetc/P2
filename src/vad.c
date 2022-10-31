@@ -113,6 +113,7 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
   case ST_SILENCE:
   contador=0;
   vad_data->frame_length=vad_data->frame_length_init;
+  f.p=0;
     if (f.p > vad_data->umbral2)
       vad_data->state = ST_MAYBEVOICE;
     break;

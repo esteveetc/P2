@@ -84,6 +84,7 @@ int main(int argc, char *argv[]) {
 
     if (sndfile_out != 0) {
       /* TODO: copy all the samples into sndfile_out */
+      sf_write_float(sndfile_out, buffer, frame_size);
     }
 
     state = vad(vad_data, buffer);
@@ -100,7 +101,12 @@ int main(int argc, char *argv[]) {
 
     if (sndfile_out != 0) {
       /* TODO: go back and write zeros in silence segments */
+      if(last_state==ST_SILENCE){ 
+        sf_seek(sndfile_out, -frame_size, SEEK_CUR);
+        sf_write_float(sndfile_out,buffer_zeros,frame_size); 
+      }
     }
+    
   }
 
   state = vad_close(vad_data);
