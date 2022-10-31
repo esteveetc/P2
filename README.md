@@ -154,6 +154,7 @@ finalment el senyal original en domini temporal.
 
 ![Alt text](capt_sum.png?raw=true "Title")
 
+
 ### Trabajos de ampliación
 
 #### Cancelación del ruido en los segmentos de silencio
@@ -174,6 +175,14 @@ finalment el senyal original en domini temporal.
   parámetros alternativos, etc.).
 
 ![Alt text](capt_ampl.png?raw=true "Title")
+
+En aquest apartat, com podem veure, podem introduir 4 paràmetres al detector, els quals el primer correspon al llindar 
+que ha de superar la potencia de l'àudio per determinar si és veu o silenci, el segon és un altre llindar, ha de ser més 
+petit alprimer, que ens ajuda a determinar un canvi possible d'estat ("MaybeVoice" o MaybeSilence"). El tercer és un 
+paràmetre que ens ha semblat addient afegir-lo, el qual determinem la llargada de la trama a analitzar, i finalment el 4t 
+paràmetre és un altre llindar que indica a partir de quin valor el ZCR té importancia en l'audio, és a dir, si superem aquest 
+llindar s'augmenten els altres llindars per tal de diferenciar amb més precisió el silenci a la veu (a l'hora de determinar 
+si es un to sord o silenci és un paràmetre molt útil).
 
 - Si lo desea, puede realizar también algún comentario acerca de la realización de la práctica que
   considere de interés de cara a su evaluación.
