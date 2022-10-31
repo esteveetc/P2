@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
   int frame_size;         /* in samples */
   float frame_duration;   /* in seconds */
   unsigned int t, last_t; /* in frames */
-  float alfa1, alfa2;
+  float alfa1, alfa2, alfa3, alfa4;
 
   char	*input_wav, *output_vad, *output_wav;
 
@@ -35,6 +35,8 @@ int main(int argc, char *argv[]) {
   output_wav = args.output_wav;
   alfa1=atof(args.alfa1);
   alfa2=atof(args.alfa2);
+  alfa3=atof(args.alfa3);
+  alfa4=atof(args.alfa4);
 
   if (input_wav == 0 || output_vad == 0) {
     fprintf(stderr, "%s\n", args.usage_pattern);
@@ -66,7 +68,7 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  vad_data = vad_open(sf_info.samplerate, alfa1, alfa2);
+  vad_data = vad_open(sf_info.samplerate, alfa1, alfa2, alfa3, alfa4);
   /* Allocate memory for buffers */
   frame_size   = vad_frame_size(vad_data);
   buffer       = (float *) malloc(frame_size * sizeof(float));
