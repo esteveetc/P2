@@ -56,11 +56,15 @@ VAD_DATA * vad_open(float rate, float alfa1, float alfa2, float alfa3, float alf
   VAD_DATA *vad_data = malloc(sizeof(VAD_DATA));
   vad_data->state = ST_INIT;
   vad_data->sampling_rate = rate;
-  vad_data->frame_length = rate * FRAME_TIME * 1e-3;
+  
+
   vad_data->alfa1=alfa1;
   vad_data->alfa2=alfa2;
   vad_data->alfa3=alfa3;
   vad_data->alfa4=alfa4;
+  float longitudTrama=vad_data->umbral3;
+  //vad_data->frame_length = rate * FRAME_TIME * 1e-3;
+  vad_data->frame_length = rate * alfa3 * 1e-3;
   return vad_data;
 }
 
@@ -106,38 +110,28 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
     
     break;
   case ST_SILENCE:
-    //printf("silence \n");
-    vad_data->umbral3 = vad_data->alfa3;
     if (f.p > vad_data->umbral2)
       vad_data->state = ST_MAYBEVOICE;
     break;
   case ST_MAYBEVOICE:
-    //printf(string(vad_data->umbral3) + "u3\n");
     if (f.p < vad_data->umbral2){
-      vad_data->state = ST_SILENCE;
-      vad_data->stateAnterior = ST_SILENCE;
-    }else if (f.p > vad_data->umbral || vad_data->umbral3 == 0){
-      vad_data->state = ST_VOICE;
-      vad_data->stateAnterior = ST_VOICE;
-    }else{
-      vad_data->umbral3--;
-    }
-    break;
-  case ST_MAYBESILENCE:
-    //printf(string(vad_data->umbral3) + "u3\n");
-    if (f.p < vad_data->umbral2 || vad_data->umbral3 == 0){ //daquesta manera no canviem a silenci si el silenci es molt curt 1 trama = 10 ms
       vad_data->state = ST_SILENCE;
       vad_data->stateAnterior = ST_SILENCE;
     }else if (f.p > vad_data->umbral){
       vad_data->state = ST_VOICE;
       vad_data->stateAnterior = ST_VOICE;
-    }else{
-      vad_data->umbral3--;
+    }
+    break;
+  case ST_MAYBESILENCE:
+    if (f.p < vad_data->umbral2){ 
+      vad_data->state = ST_SILENCE;
+      vad_data->stateAnterior = ST_SILENCE;
+    }else if (f.p > vad_data->umbral){
+      vad_data->state = ST_VOICE;
+      vad_data->stateAnterior = ST_VOICE;
     }
     break;
   case ST_VOICE:
-    //printf("voice \n");
-    vad_data->umbral3 = vad_data->alfa3;
     if (f.p < vad_data->umbral)
       vad_data->state = ST_MAYBESILENCE;
     break;
@@ -145,10 +139,8 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
     break;
   }
   if(f.zcr>vad_data->alfa4 && f.p<vad_data->umbral){
-    //vad_data->umbral = vad_data->um1ini+2; 
     vad_data->umbral2 = vad_data->um2ini+2;
   }else{
-    //vad_data->umbral = vad_data->um1ini; 
     vad_data->umbral2 = vad_data->um2ini;
   }
   if(vad_data->stateAnterior == ST_SILENCE || vad_data->stateAnterior == ST_VOICE){
