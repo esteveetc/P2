@@ -145,12 +145,12 @@ finalment el senyal original en domini temporal.
 ![Alt text](preg1.png?raw=true "Title")
 
 - Explique, si existen. las discrepancias entre el etiquetado manual y la detección automática.
+	Com podem veure hi ha certes diferencies entre el fitxer generat pel vad i la etiquetació manual, això és degut a que el fitxer generat per l'automata tarda una estona en assegurar-se de que hem canviat d'estat per tal d'evitar canvis incorrectes a les petites pauses que es generen al parlar dins d'una mateixa paraula. Per tant aquesta estona per assegurar el canvi, més la longitud del frame és el que causa aquesta diferencia principalment.
 
 - Evalúe los resultados sobre la base de datos `db.v4` con el script `vad_evaluation.pl` e inserte a 
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
 
-![Alt text](sum.png?raw=true "Title")
 
 ### Trabajos de ampliación
 
