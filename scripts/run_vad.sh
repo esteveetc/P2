@@ -1,3 +1,11 @@
+#Si no ponemos parametros no podemos ejecutar el programa (no detecta los valores x defecto):
+if [ $# -ne 4 ]; then
+    echo "usage: $0 missing parameters"
+
+    exit -1
+fi
+
+
 #!/bin/bash
 
 # Be sure that this file has execution permissions:

@@ -42,8 +42,8 @@ const char help_message[] =
 "   -w FILE, --output-wav=FILE  WAVE file with silences cleared\n"
 "   -1 FLOAT, --alfa1=FLOAT   Incremento del umbral uno en dB[default: 5.1]\n"
 "   -2 FLOAT, --alfa2=FLOAT   Incremento del umbral dos en dB[default: 4.6]\n"
-"   -3 FLOAT, --alfa3=FLOAT   Incremento del umbral tres en dB[default: 50]\n"
-"   -4 FLOAT, --alfa4=FLOAT   Incremento del umbral cuatro [default: 1.5]\n"
+"   -3 FLOAT, --alfa3=FLOAT   Incremento del umbral tres en dB[default: 55]\n"
+"   -4 FLOAT, --alfa4=FLOAT   Incremento del umbral cuatro[default: 500]\n"
 "   -v, --verbose  Show debug information\n"
 "   -h, --help     Show this screen\n"
 "   --version      Show the version of the project\n"
@@ -319,7 +319,7 @@ int elems_to_args(Elements *elements, DocoptArgs *args, bool help,
 
 DocoptArgs docopt(int argc, char *argv[], bool help, const char *version) {
     DocoptArgs args = {
-        0, 0, 0, (char*) "5.1", (char*) "4.6", (char*) "50", (char*) "1.5",
+        0, 0, 0, (char*) "5.1", (char*) "4.6", (char*) "55", (char*) "500",
         NULL, NULL, NULL,
         usage_pattern, help_message
     };

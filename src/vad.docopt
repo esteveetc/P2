@@ -11,8 +11,8 @@ Options:
    -w FILE, --output-wav=FILE  WAVE file with silences cleared
    -1 FLOAT, --alfa1=FLOAT   Incremento del umbral uno en dB[default: 5.1]
    -2 FLOAT, --alfa2=FLOAT   Incremento del umbral dos en dB[default: 4.6]
-   -3 FLOAT, --alfa3=FLOAT   Incremento del umbral tres en dB[default: 50]
-   -4 FLOAT, --alfa4=FLOAT   Incremento del umbral cuatro [default: 1.5]
+   -3 FLOAT, --alfa3=FLOAT   Incremento del umbral tres en dB[default: 55]
+   -4 FLOAT, --alfa4=FLOAT   Incremento del umbral cuatro[default: 500]
    -v, --verbose  Show debug information
    -h, --help     Show this screen
    --version      Show the version of the project
