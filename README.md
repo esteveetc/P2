@@ -189,6 +189,8 @@ si es un to sord o silenci és un paràmetre molt útil).
 
 - Si lo desea, puede realizar también algún comentario acerca de la realización de la práctica que
   considere de interés de cara a su evaluación.
+  
+  A l'hora d'executar el programa hem d'enviar-li els 4 paràmetres, els òptims són $1 = 5.1, $2 = 4.6, $3 = 55, $4 = 500. Si no enviem cap o menys de 4 saltarà un error de "missing parameters" (al docopt tenim els valors per defecte, però no ens el detecta com nosaltres volem).
 
 
 ### Antes de entregar la práctica
