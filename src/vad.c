@@ -45,6 +45,7 @@ Features compute_features(const float *x, int N) {
    */
   Features feat;
   feat.p = compute_power(x,N);
+  feat.zcr = compute_zcr(x,N,16000);
   return feat;
 }
 
@@ -56,15 +57,13 @@ VAD_DATA * vad_open(float rate, float alfa1, float alfa2, float alfa3, float alf
   VAD_DATA *vad_data = malloc(sizeof(VAD_DATA));
   vad_data->state = ST_INIT;
   vad_data->sampling_rate = rate;
-  
-
   vad_data->alfa1=alfa1;
   vad_data->alfa2=alfa2;
-  vad_data->alfa3=alfa3;
+  vad_data->alfa3=alfa3;//longitud frame
   vad_data->alfa4=alfa4;
-  float longitudTrama=vad_data->umbral3;
   //vad_data->frame_length = rate * FRAME_TIME * 1e-3;
   vad_data->frame_length = rate * alfa3 * 1e-3;
+  vad_data->frame_length_init=vad_data->frame_length;
   return vad_data;
 }
 
@@ -94,6 +93,8 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
    */
 
   Features f = compute_features(x, vad_data->frame_length);
+  float longitudTrama;
+  int contador=0;
 
   vad_data->last_feature = f.p; /* save feature, in case you want to show */
   switch (vad_data->state) {
@@ -110,6 +111,8 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
     
     break;
   case ST_SILENCE:
+  contador=0;
+  vad_data->frame_length=vad_data->frame_length_init;
     if (f.p > vad_data->umbral2)
       vad_data->state = ST_MAYBEVOICE;
     break;
@@ -120,6 +123,9 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
     }else if (f.p > vad_data->umbral){
       vad_data->state = ST_VOICE;
       vad_data->stateAnterior = ST_VOICE;
+    }else{
+      contador++;
+      vad_data->frame_length=vad_data->frame_length/(contador*0.5);
     }
     break;
   case ST_MAYBESILENCE:
@@ -129,17 +135,23 @@ VAD_STATE vad(VAD_DATA *vad_data, float *x) {
     }else if (f.p > vad_data->umbral){
       vad_data->state = ST_VOICE;
       vad_data->stateAnterior = ST_VOICE;
+    }else{
+      contador++;
+      vad_data->frame_length=vad_data->frame_length/(contador*0.5);
     }
     break;
   case ST_VOICE:
+    vad_data->frame_length=vad_data->frame_length_init;
+    contador=0;
     if (f.p < vad_data->umbral)
       vad_data->state = ST_MAYBESILENCE;
     break;
   case ST_UNDEF:
     break;
   }
+
   if(f.zcr>vad_data->alfa4 && f.p<vad_data->umbral){
-    vad_data->umbral2 = vad_data->um2ini+2;
+    vad_data->umbral2 = vad_data->um2ini+1;
   }else{
     vad_data->umbral2 = vad_data->um2ini;
   }

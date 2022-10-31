@@ -16,6 +16,7 @@ typedef struct {
   VAD_STATE stateAnterior;
   float sampling_rate;
   unsigned int frame_length;
+  unsigned int frame_length_init;
   float last_feature; /* for debuggin purposes */
   float umbral;
   float umbral2;
