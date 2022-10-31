@@ -152,7 +152,7 @@ finalment el senyal original en domini temporal.
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
 
-![Alt text](sum.png?raw=true "Title")
+![Alt text](capt_sum.png?raw=true "Title")
 
 ### Trabajos de ampliación
 
