@@ -152,7 +152,7 @@ finalment el senyal original en domini temporal.
   continuación las tasas de sensibilidad (*recall*) y precisión para el conjunto de la base de datos (sólo
   el resumen).
 
-![Alt text](capt_sum.png?raw=true "Title")
+![Alt text](capt_sum.png?raw=true "Title") 
 
 
 ### Trabajos de ampliación
@@ -167,7 +167,10 @@ finalment el senyal original en domini temporal.
 
 - Si ha usado `docopt_c` para realizar la gestión de las opciones y argumentos del programa `vad`, inserte
   una captura de pantalla en la que se vea el mensaje de ayuda del programa.
+  
+  ![Alt text](ampliació.png?raw=true "Title")
 
+Utilitzant `docopt_c` (terminal: %python3 docopt_c/docopt_c.py -o src/vad_docopt.h src/vad.docopt) generem "src/vad_docopt.*", el qual hem modificat per quan executem el comandament d'ajuda ens digui quins parametres podem enviar i de quin tipus són.
 
 ### Contribuciones adicionales y/o comentarios acerca de la práctica
 
