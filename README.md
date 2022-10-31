@@ -170,7 +170,7 @@ finalment el senyal original en domini temporal.
   
   ![Alt text](ampliació.png?raw=true "Title")
 
-Utilitzant `docopt_c` (terminal: %python3 docopt_c/docopt_c.py -o src/vad_docopt.h src/vad.docopt) generem "src/vad_docopt.*", el qual hem modificat per quan executem el comandament d'ajuda ens digui quins parametres podem enviar i de quin tipus són.
+Utilitzant `docopt_c` (terminal: %python3 docopt_c/docopt_c.py -o src/vad_docopt.h src/vad.docopt) generem "src/vad_docopt.*", el qual hem modificat per quan executem el comandament d'ajuda ens digui quins paràmetres podem enviar i de quin tipus són.
 
 ### Contribuciones adicionales y/o comentarios acerca de la práctica
 
